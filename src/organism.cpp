@@ -1,8 +1,12 @@
 #include "organism.h"
 
+/* The image that is displayed when this dies */
 extern ofImage deathImage;
+/* Current time this frame */
 extern uint64_t curTime;
+/* last frame */
 extern uint64_t prevTime;
+/* difference between current and last */
 extern uint64_t delta;
 
 
@@ -33,6 +37,7 @@ void Organism::setup(ofVec2f p, uint32_t numSeg, GENDER setGender)
 
 	removeFlag = false;
 
+	/* 50% chance to be male or female if not specified */
 	if (setGender == NULL_GENDER)
 	{
 		float ranGen = ofRandom(10.);
@@ -43,7 +48,6 @@ void Organism::setup(ofVec2f p, uint32_t numSeg, GENDER setGender)
 		else
 		{
 			gender = FEMALE;
-
 		}
 	}
 	else
@@ -51,14 +55,12 @@ void Organism::setup(ofVec2f p, uint32_t numSeg, GENDER setGender)
 		gender = setGender;
 	}
 
-
-
 	reproduceReady = false;
 
 	matureStage = 4;
 
-	rad = 16;
-	inc = (rad + (rad / numSeg)) / numSeg;
+	rad = 16; // radius of segment
+	inc = (rad + (rad / numSeg)) / numSeg; // how much to decrease radius by each seg
 	for (size_t i = 0; i < numSeg; i++)
 	{
 		bool m = false;
@@ -72,7 +74,9 @@ void Organism::setup(ofVec2f p, uint32_t numSeg, GENDER setGender)
 		rad -= inc;
 	}
 
-	segments.begin()->setTarget(ofVec2f(500, 500));
+	// To move, give the initial segment a target
+	// the rest will follow one another in a line
+	segments.begin()->setTarget(ofVec2f(500, 500)); // arbitrary position
 
 	hungry = false;
 
@@ -83,7 +87,6 @@ void Organism::setup(ofVec2f p, uint32_t numSeg, GENDER setGender)
 	starved = false;
 
 	deathIm = deathImage;
-
 }
 
 void Organism::update(ofVec2f *t)
@@ -98,61 +101,12 @@ void Organism::update(ofVec2f *t)
 	{
 		dying = true;
 
-		//timerAnim	+= delta;
 		timerRemove += delta;
 
 		if (timerRemove >= MAX_TIME_REMOVE)
 		{
 			removeFlag = true;
 		}
-		/*
-		if (timerAnim >= MAX_TIME_ANIM)
-		{
-			timerAnim = 0;
-			//animation 
-			if (animDir == 0)
-			{
-				animIndex++;
-				if (animIndex >= 1)
-				{
-					animDir = 1;
-				}
-			}
-			else
-			{
-				animIndex--;
-				if (animIndex <= 1)
-				{
-					animDir = 0;
-				}
-			}
-			deathIm = deathImage[animIndex];*/
-
-			/*if (resizeDir == 0)
-			{
-				deathImSize++;
-				deathIm = deathImage[animIndex];
-				deathIm.resize(deathImSize, deathImSize);
-				deathIm.setAnchorPoint(deathIm.getWidth() / 2, deathIm.getHeight() / 2);
-
-				if (deathImSize >= deathImMaxSize)
-				{
-					resizeDir = 1;
-				}
-			}
-			else
-			{
-				deathImSize--;
-				deathIm = deathImage[animIndex];
-				deathIm.resize(deathImSize, deathImSize);
-				deathIm.setAnchorPoint(deathIm.getWidth() / 2, deathIm.getHeight() / 2);
-
-				if (deathImSize <= 5)
-				{
-					resizeDir = 0;
-				}
-			}
-		}*/
 
 		for (iSeg itr = segments.begin(); itr != segments.end(); itr++)
 		{
@@ -196,7 +150,7 @@ void Organism::update(ofVec2f *t)
 				ofVec2f ranV(ofRandom(xpmin, xpmax),
 					ofRandom(ypmin, ypmax));
 
-				/* Constrain */
+				/* Constrain to bounds of petri dish*/
 				if (ranV.distance(petriPos) > petriRad)
 				{
 					ranV.interpolate(petriPos, 0.4);
@@ -213,13 +167,13 @@ void Organism::update(ofVec2f *t)
 
 		/* HUNGER + GROWTH */
 	
-			timerHunger += delta;
+		timerHunger += delta;
 
-			if (timerHunger >= MAX_TIME_HUNGER)
-			{
-				timerHunger = 0;
-				hungry = true;
-			}
+		if (timerHunger >= MAX_TIME_HUNGER)
+		{
+			timerHunger = 0;
+			hungry = true;
+		}
 		
 
 		/* SEX */
@@ -230,12 +184,15 @@ void Organism::update(ofVec2f *t)
 			if (timerSex >= maxTimeSex)
 			{
 				timerSex = 0;
+				// ofApp will handle the reproduction
+				// so just set flag
 				reproduceReady = true;
 			}
 		}
 
 		segments.begin()->update();
 
+		/* Each segment follow the one before it */
 		for (iSeg itr = segments.begin() + 1; itr != segments.end(); itr++)
 		{
 			itr->setTarget((itr - 1)->getPos());
@@ -249,11 +206,14 @@ void Organism::update(ofVec2f *t)
 
 void Organism::draw()
 {
+	// A cross is displayed if dying
 	if (dying)
 	{
 		std::cout << segments.begin()->getPos().x << " " << segments.begin()->getPos().y << std::endl;
 		deathIm.draw(segments.begin()->getPos());
 	}
+
+	// An orgaism is made up of multiple segments
 	for (iSeg itr = segments.begin(); itr != segments.end(); itr++)
 	{
 		itr->draw();
@@ -268,13 +228,14 @@ void Organism::grow()
 	timerStarvation = 0;
 
 	float newSize = segments.begin()->getSize() + inc;
-	ofVec2f newPos = segments.begin()->getPos();// *SEG_DISTANCE;
+	ofVec2f newPos = segments.begin()->getPos();
 
 	bool m = false;
 	if (gender == MALE)
 	{
 		m = true;
 	}
+	
 	segments.insert(segments.begin(), Segment());
 	segments[0].setup(newSize, newPos, m);
 }

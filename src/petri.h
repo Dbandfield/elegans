@@ -4,6 +4,7 @@
 #include <ofPath.h>
 #include <ofVec2f.h>
 
+/* Simple class to represent the background */
 
 class Petri
 {

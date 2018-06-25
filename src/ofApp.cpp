@@ -13,6 +13,10 @@ void ofApp::setup()
 {
 	pause = false; 
 
+	// Because I haven't had time to go back and refactor
+	// since differentiating male and female organisms,
+	// the image for femaile organisms is referred to as 
+	// orgImage while the male image is maleImage
 	orgImage.load("org.png");
 	foodImage.load("food.png");
 	maleImage.load("male.png");
@@ -31,6 +35,7 @@ void ofApp::setup()
 
 	petri.setup();
 
+	// Make equal number of male and female organisms
 	for (size_t i = 0; i < NUM_START_ORGS/2; i++)
 	{
 		organisms.push_back(Organism());
@@ -41,6 +46,9 @@ void ofApp::setup()
 		organisms.push_back(Organism());
 		organisms.back().setup(petri.getPos(), 3, FEMALE);
 	}
+
+	// put food in random positions, but shift towards
+	// centre if they go outside petri bounds
 
 	for (size_t i = 0; i < NUM_START_FOOD; i++)
 	{
@@ -73,8 +81,10 @@ void ofApp::update()
 		
 		petri.update();
 
+		// One or less organisms??? The population will die out!
 		if (organisms.size() <= 1)
 		{
+			// So we interfere with nature and add some more
 			for (size_t i = 0; i < NUM_START_ORGS / 2; i++)
 			{
 				organisms.push_back(Organism());
@@ -108,7 +118,8 @@ void ofApp::update()
 			}
 		}
 
-		/* check if ready for removal */
+		/* check if ready for removal. This happens after an organism has 
+			gone through its dying phase */
 		for (iOrg itro = organisms.begin(); itro != organisms.end(); itro++)
 		{
 			if (itro->removeFlag)
@@ -119,12 +130,13 @@ void ofApp::update()
 		}
 
 
+		/* Go through each organism */
 		for (iOrg itro = organisms.begin(); itro != organisms.end(); itro++)
 		{
-
 			/* if org is hungry */
 			if (itro->getHungry())
 			{
+				/* If some food exists */
 				if (food.size() > 0)
 				{
 					bool updated = false;
@@ -132,8 +144,6 @@ void ofApp::update()
 					for (iFood itrf = food.begin(); itrf != food.end(); itrf++)
 					{
 						/* see if it is close enough to be targetted */
-
-
 						float d = itro->getPos().distance(itrf->getPos());
 						if (d < petri.getRad() / 2)
 						{
@@ -141,25 +151,27 @@ void ofApp::update()
 							itro->update(&vc);
 							updated = true;
 
+							// close enough to eat food!
 							if (d < 50)
 							{
-								itro->grow();
-								itrf->consume();
-								food.erase(itrf);
+								itro->grow(); // the organism grows ...
+								itrf->consume(); // ... and the food is consumed ...
+								food.erase(itrf); // .. and disappears
 								
 							}
 							break;
 						}
 					}
-					if(!updated) itro->update(nullptr);
+					if(!updated) itro->update(nullptr); // no target
 				}
 				else
 				{
-					itro->update(nullptr);
+					itro->update(nullptr); // no target
 				}
 
 			}
-			/* if not hungry, check if ready to reproduce */
+			/* if not hungry, check if ready to reproduce 
+				(ie. an org won't reproduce if it is hungry.) */
 			else if (itro->getReproduce())
 			{
 				bool updated = false;

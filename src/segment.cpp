@@ -34,9 +34,9 @@ void Segment::setup(float sz, ofVec2f p, bool male)
 	timer = 0;
 
 	moveVel = 0; // movement velocity
-	rotVel = 0;
-	movAcc = 0.001;
-	rotAcc = 0.1;
+	rotVel = 0; // rotational velocity
+	movAcc = 0.001; // movement acceleration
+	rotAcc = 0.1; // rotational acceleration
 }
 
 void Segment::update()
