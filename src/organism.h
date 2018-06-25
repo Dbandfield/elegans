@@ -10,6 +10,8 @@
 
 #include "segment.h"
 
+// use vectors for segments, because over time organisms grow 
+// and add new segments
 typedef std::vector<Segment> vSeg;
 typedef std::vector<Segment>::iterator iSeg;
 
@@ -30,28 +32,40 @@ public:
 	Organism();
 	~Organism();
 
+	/* A position! A size (number of segments)! and a gender! */
 	void setup(ofVec2f p, uint32_t numSeg, GENDER setGen=NULL_GENDER);
 
+	/* give the organism a target to move towards. make sure 
+	to call this in the ofApp update fn.  */
 	void update(ofVec2f *t);
 
+	/* put in the ofApp draw fn */
 	void draw();
 
+	/* This makes the orgnism grow by one segment */
 	void grow();
 
+	/* am I hungry? */
 	bool getHungry();
 
+	/* am i ready to repoduce? */
 	bool getReproduce();
 
+	/* Where am i? */
 	ofVec2f getPos();
 
+	/* Set to indicate that this should be removed */
 	bool removeFlag;
 
+	/* What gender am I? */
 	GENDER getGender();
 
 	void reproduce();
 
+	/* Am i dying? */
 	bool getDying();
 
+	/* How big am I? (in segments) */
 	int getSize();
 
 	int getMatureStage();

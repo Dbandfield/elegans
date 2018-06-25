@@ -1,0 +1,7 @@
+# eclipse detritus
+.settings/
+.cproject
+.project
+*.make
+*.qbs
+template.xml
