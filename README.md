@@ -9,8 +9,7 @@ This repo is the code for the simulation.
 
 This is what it looks like:
 
-<iframe src="https://player.vimeo.com/video/223166910" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/223166910">Lifecycle</a> from <a href="https://vimeo.com/user68159488">Daniel Bandfield</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<p><a href="https://vimeo.com/223166910">Video</a></p>
 
 ## Prequisites
 
