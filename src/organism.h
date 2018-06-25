@@ -32,7 +32,11 @@ public:
 	Organism();
 	~Organism();
 
-	/* A position! A size (number of segments)! and a gender! */
+	/* A position! A size (number of segments)! and a gender! 
+		gender should be set to either MALE or FEMALE. If it is 
+		set to NULL_GENDER (the default) then the gender is randomised 
+		between MALE and FEMALE
+	*/
 	void setup(ofVec2f p, uint32_t numSeg, GENDER setGen=NULL_GENDER);
 
 	/* give the organism a target to move towards. make sure 
@@ -86,7 +90,8 @@ private:
 
 	vSeg segments;
 
-	float SEG_DISTANCE = 30;
+	/* How far apart re segments? */
+	float SEG_DISTANCE = 30; 
 
 	uint64_t timerMove;
 	uint64_t timerRetarget;
@@ -119,6 +124,9 @@ private:
 	int animDir;
 	int resizeDir;
 
+	/* How many segments are needed before the organism
+		is considered mature?
+	*/
 	int matureStage;
 
 

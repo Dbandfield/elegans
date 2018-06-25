@@ -15,10 +15,6 @@ typedef std::vector<Organism>::iterator iOrg;
 typedef std::vector<Food> vFood;
 typedef std::vector<Food>::iterator iFood;
 
-
-
-
-
 class ofApp : public ofBaseApp
 {
 

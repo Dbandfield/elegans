@@ -5,3 +5,10 @@
 *.make
 *.qbs
 template.xml
+Makefile
+
+#intermediates
+obj/
+
+#binaries
+bin/
