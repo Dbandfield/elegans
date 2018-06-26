@@ -1,5 +1,6 @@
 # Lifecycle
 
+
 ## Intro
 
 The code for half of Daniel Bandfield's (me) installation 'Lifecycle'
@@ -9,15 +10,20 @@ This repo is the code for the simulation.
 
 This is what it looks like:
 
-<p><a href="https://vimeo.com/223166910">Video</a></p>
+<p><a href="https://vimeo.com/223166910">Lifecycle</a></p>
+
+![screenshot](screenshots/1.png?raw=true "The Micro-organisms")
+
 
 ## Prequisites
 
-- This code has been developed and tested for Raspberry Pi (Debian Stretch Lite). It probably works on Windows.
+- This code has been developed and tested for Raspberry Pi (Raspbian Stretch Lite). It has also been tested on Arch Linux and at one point on Windows (should still work).
 
 - C++ compiler/IDE of your choice.
 
 - OpenFrameworks Library. See the website for easy to follow installation instructions
+
+- Make sure the binary ends up one level above bin/data so it can access the data files
 
 ## Structure
 
@@ -28,4 +34,5 @@ See individual files for details.
 `segment` represents one of the physical segments that makes up an organism\
 `petri` is simply just the background.\
 `food` represents the food source of the micro-organisms.\
-`log` and `log-entry` are features for displaying text that were removed for aesthetic reasons.\
+`log` and `log-entry` are features for displaying text that were removed for aesthetic reasons.
+
