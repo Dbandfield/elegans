@@ -14,6 +14,7 @@ This is what it looks like:
 
 ![screenshot](screenshots/1.png?raw=true "The Micro-organisms")
 
+
 ## Prequisites
 
 - This code has been developed and tested for Raspberry Pi (Raspbian Stretch Lite). It has also been tested on Arch Linux and at one point on Windows (should still work).
@@ -34,3 +35,4 @@ See individual files for details.
 `petri` is simply just the background.\
 `food` represents the food source of the micro-organisms.\
 `log` and `log-entry` are features for displaying text that were removed for aesthetic reasons.
+
