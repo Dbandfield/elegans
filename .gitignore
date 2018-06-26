@@ -11,4 +11,5 @@ Makefile
 obj/
 
 #binaries
-bin/
+bin/*
+!bin/data/*

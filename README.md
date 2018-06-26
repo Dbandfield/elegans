@@ -1,5 +1,7 @@
 # Lifecycle
 
+(screenshots/1.png)
+
 ## Intro
 
 The code for half of Daniel Bandfield's (me) installation 'Lifecycle'
