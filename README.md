@@ -1,11 +1,10 @@
 # Lifecycle
 
-![screenshot](screenshots/1.png?raw=true "The Micro-organisms")
 
 ## Intro
 
 The code for half of Daniel Bandfield's (me) installation 'Lifecycle'
-On a TV a simulation of worm-like micro-organisms played, while a machine with an arterial system of pipes watched. When any of the worms died, the machine noticed and pumped 'blood' around its system.\
+On a TV a simulation of worm-like micro-organisms played, while a machine with an arterial system of pipes watched. When any of the worms died, the machine noticed and pumped 'blood' around its system.
 
 This repo is the code for the simulation.
 
@@ -13,13 +12,17 @@ This is what it looks like:
 
 <p><a href="https://vimeo.com/223166910">Lifecycle</a></p>
 
+![screenshot](screenshots/1.png?raw=true "The Micro-organisms")
+
 ## Prequisites
 
-- This code has been developed and tested for Raspberry Pi (Debian Stretch Lite). It probably works on Windows.
+- This code has been developed and tested for Raspberry Pi (Raspbian Stretch Lite). It has also been tested on Arch Linux and at one point on Windows (should still work).
 
 - C++ compiler/IDE of your choice.
 
 - OpenFrameworks Library. See the website for easy to follow installation instructions
+
+- Make sure the binary ends up one level above bin/data so it can access the data files
 
 ## Structure
 
