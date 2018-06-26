@@ -1,6 +1,6 @@
 # Lifecycle
 
-[](screenshots/1.png)
+![screenshot](screenshots/1.png?raw=true "The Micro-organisms)
 
 ## Intro
 
